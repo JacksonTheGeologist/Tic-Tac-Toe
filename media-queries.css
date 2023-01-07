@@ -1,0 +1,28 @@
+@media (max-width: 32em) {
+  html {
+    font-size: 40%;
+  }
+
+  .center {
+    height: 42rem;
+  }
+
+  .scoreboard {
+    width: 32rem;
+  }
+
+  .score {
+    gap: 0.4rem;
+  }
+  .header-info,
+  .game-board,
+  .winner {
+    height: 32rem;
+    width: 32rem;
+  }
+  .game-square,
+  .game-square:active {
+    height: 9rem;
+    width: 9rem;
+  }
+}
