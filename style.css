@@ -184,3 +184,49 @@ body {
 .score-markers--playerO {
   text-align: end;
 }
+
+/* ***************** */
+/* One Player Toggle */
+/* ***************** */
+.players-toggle {
+  display: grid;
+  grid-template-rows: 0.5fr 1fr;
+  /* margin-bottom: 9.6rem; */
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 100px;
+  height: 52px;
+  background-color: #141a38;
+  border-radius: 30px;
+  border: 2px solid #e8e8ec;
+}
+
+/* After slide changes */
+.toggle:after {
+  content: '';
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e8e8ec;
+  top: 1px;
+  left: 1px;
+  transition: all 0.5s;
+}
+
+/* Toggle text */
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+/* Checkbox checked effect */
+.checkbox:checked + .toggle::after {
+  left: 49px;
+}
+.checkbox {
+  display: none;
+}
