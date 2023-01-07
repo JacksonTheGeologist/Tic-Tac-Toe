@@ -10,20 +10,34 @@ body {
   box-sizing: border-box;
 }
 
-.title {
-  font-size: 7.2rem;
-  padding-top: 3rem;
-}
-
 .opacity-transition {
   opacity: 0;
+}
+
+.center {
+  margin: 0 auto;
+  width: 100vw;
+  height: 52rem;
+  position: relative;
+}
+.container {
+  display: grid;
+  justify-content: center;
 }
 /* ***************** */
 /* Header/First Load */
 /* ***************** */
-.header-info p {
+.title {
+  font-size: 8.4rem;
+  font-weight: 900;
+  padding-top: 0.8rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+.num-players-head {
   font-size: 3.2rem;
-  padding-bottom: 1.6rem;
+  font-weight: 500;
+  padding-bottom: 0.8rem;
 }
 
 .header-info {
@@ -36,6 +50,52 @@ body {
   z-index: 5;
 }
 
+/* ***************** */
+/* One Player Toggle */
+/* ***************** */
+.players-toggle {
+  display: grid;
+  grid-template-rows: 1fr;
+  /* margin-bottom: 9.6rem; */
+}
+
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+  background-color: #141a38;
+  border-radius: 30px;
+  border: 2px solid #e8e8ec;
+}
+
+/* After slide changes */
+.toggle:after {
+  content: '';
+  position: absolute;
+  width: 25px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #e8e8ec;
+
+  left: 0.5px;
+  transition: all 0.5s;
+}
+
+/* Toggle text */
+.number-players-text {
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+}
+/* Checkbox checked effect */
+.checkbox:checked + .toggle::after {
+  left: 24.5px;
+}
+.checkbox {
+  display: none;
+}
+
+/* BUTTONS */
 .game-reset {
   color: #e8e8ec;
   font-size: 3.2rem;
@@ -70,17 +130,6 @@ body {
   color: #161d3e;
   background-color: #e8e8ec;
   border: 1px solid #161d3e;
-}
-
-.center {
-  margin: 0 auto;
-  width: 100vw;
-  height: 52rem;
-  position: relative;
-}
-.container {
-  display: grid;
-  justify-content: center;
 }
 
 .header-info,
@@ -183,50 +232,4 @@ body {
 
 .score-markers--playerO {
   text-align: end;
-}
-
-/* ***************** */
-/* One Player Toggle */
-/* ***************** */
-.players-toggle {
-  display: grid;
-  grid-template-rows: 0.5fr 1fr;
-  /* margin-bottom: 9.6rem; */
-}
-
-.toggle {
-  position: relative;
-  display: inline-block;
-  width: 100px;
-  height: 52px;
-  background-color: #141a38;
-  border-radius: 30px;
-  border: 2px solid #e8e8ec;
-}
-
-/* After slide changes */
-.toggle:after {
-  content: '';
-  position: absolute;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #e8e8ec;
-  top: 1px;
-  left: 1px;
-  transition: all 0.5s;
-}
-
-/* Toggle text */
-p {
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: bold;
-}
-
-/* Checkbox checked effect */
-.checkbox:checked + .toggle::after {
-  left: 49px;
-}
-.checkbox {
-  display: none;
 }

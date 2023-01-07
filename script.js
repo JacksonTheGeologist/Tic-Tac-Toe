@@ -8,6 +8,7 @@ const gameResetBtn = document.querySelector('.game-reset');
 const gameStartBtn = document.querySelector('.game-start');
 const playerOscoreMarkersP = document.querySelector('.score-markers--playerO');
 const playerXscoreMarkersP = document.querySelector('.score-markers--playerX');
+const numPlayersToggle = document.querySelector('.checkbox');
 
 //Game Pieces
 let playerSymb = 'X';
@@ -15,6 +16,16 @@ let winnerSymb = 'X';
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 let xScore = 0;
 let oScore = 0;
+
+function toggleTest() {
+  if (numPlayersToggle.checked == true) {
+    console.log('Checked');
+  } else {
+    console.log('Not Checked');
+  }
+}
+
+numPlayersToggle;
 
 //adds event listener to each square
 for (i = 0; i < gameSquares.length; i++) {
