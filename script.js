@@ -217,4 +217,5 @@ gameResetBtn.addEventListener(touchEvent, function () {
 // //   }, 1500);
 // // });
 // console.log('for ios');
-``;
+
+//Just for git stuff
