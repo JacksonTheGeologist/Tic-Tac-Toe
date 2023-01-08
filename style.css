@@ -6,7 +6,7 @@ html {
   margin: 0;
 }
 body {
-  font-family: sans-serif;
+  font-family: 'Vollkorn', serif;
   box-sizing: border-box;
 }
 
@@ -56,10 +56,11 @@ body {
 .players-toggle {
   display: grid;
   grid-template-rows: 1fr;
-  /* margin-bottom: 9.6rem; */
+  justify-content: center;
 }
 
 .toggle {
+  transition: all 0.5s;
   position: relative;
   display: inline-block;
   width: 50px;
@@ -90,6 +91,12 @@ body {
 /* Checkbox checked effect */
 .checkbox:checked + .toggle::after {
   left: 24.5px;
+  background-color: #161d3e;
+}
+
+.checkbox:checked + .toggle {
+  background-color: #e8e8ec;
+  transition: all 0.3s;
 }
 .checkbox {
   display: none;

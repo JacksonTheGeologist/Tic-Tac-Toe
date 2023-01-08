@@ -9,6 +9,7 @@ const gameStartBtn = document.querySelector('.game-start');
 const playerOscoreMarkersP = document.querySelector('.score-markers--playerO');
 const playerXscoreMarkersP = document.querySelector('.score-markers--playerX');
 const numPlayersToggle = document.querySelector('.checkbox');
+const numPlayersTextP = document.querySelector('.number-players-text');
 
 //Game Pieces
 let playerSymb = 'X';
@@ -16,16 +17,39 @@ let winnerSymb = 'X';
 let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 let xScore = 0;
 let oScore = 0;
+let numPlayers = 2;
 
-function toggleTest() {
-  if (numPlayersToggle.checked == true) {
-    console.log('Checked');
-  } else {
-    console.log('Not Checked');
+//toggle number of players function
+
+// Math.floor(Math.random() * max);
+function togglePlayers() {
+  numPlayers = numPlayersToggle.checked ? 2 : 1;
+  numPlayersTextP.textContent = `${numPlayers} players`;
+}
+numPlayersToggle.addEventListener(touchEvent, togglePlayers);
+
+function onePlayerGame() {
+  // if (numPlayers === 1) {
+  //   console.log('yippee~');
+  //   // User clicks --> marks the square
+
+  // COMPUTER MOVES
+  const randSqrNum = Math.floor(Math.random() * 9);
+  if (!gameSquares[randSqrNum].textContent) {
+    gameSquares[randSqrNum].textContent = 'O';
   }
+  //   // Rand num gen for computer move
+  //   // Checks to make sure spot is empty
+  //   // Empty --> Marks with 0
+  //   // loops back and regenerates a number
+  //   // checks for empty
+  //   // empty marks with O
+  //   // extend for loop to make computer move
+  //   // checkWinner()
+  // }
 }
 
-numPlayersToggle;
+function twoPlayerGame() {}
 
 //adds event listener to each square
 for (i = 0; i < gameSquares.length; i++) {
@@ -34,7 +58,6 @@ for (i = 0; i < gameSquares.length; i++) {
       e.target.textContent = playerSymb;
       playerSymb = playerSymb === 'X' ? 'O' : 'X';
       e.target.classList.add('no-hover');
-      // playerTurn.textContent = `${playerSymb}'s turn!`;
       checkWinner();
     }
   });
@@ -55,24 +78,10 @@ function winnerText(playerID) {
     playerOscoreMarkersP.textContent = '🔵 '.repeat(oScore);
   }
 
-  // if (winnerSymb === 'X') {
-  //   xScore += 1;
-  //   const scoreEl = document.createElement('p');
-  //   scoreEl.classList.add('score-marker');
-  //   scoreEl.textContent = '🔵';
-  //   playerXScoreDiv.appendChild(scoreEl);
-  //   console.log('me');
-  // } else {
-  //   oScore += 1;
-  //   const scoreEl = document.createElement('p');
-  //   scoreEl.classList.add('score-marker');
-  //   scoreEl.textContent = '🔵';
-  //   playerOScoreDiv.appendChild(scoreEl);
-  // }
-
   playerTurn.textContent = `${playerID.textContent} is the winner!`;
 }
 
+//Resets the Game
 const resetGame = function () {
   playerTurn.textContent = `${winnerSymb} makes the first move!`;
   gameResetBtn.classList.add('hidden');
@@ -91,26 +100,18 @@ const resetGame = function () {
   }, 1000);
 };
 
+//Hides Elements
 const addHiddenEl = function (el) {
   el.classList.add('hidden');
 };
 
-// gameStartBtn.addEventListener('click', function () {
-//   headerInfoEl.classList.add('opacity-transition');
-// });
-// gameStartBtn.addEventListener('click', function () {
-//   setTimeout(function () {
-//     addHiddenEl(headerInfoEl);
-//   }, 500);
-// });
-
+// GAME LOGIC
 function draw() {
   winner.classList.remove('hidden');
   playerTurn.textContent = 'Draw!';
 }
 
 let empties = 9;
-
 function checkWinner() {
   empties--;
   if (
@@ -172,10 +173,14 @@ function checkWinner() {
   }
 }
 
-//add a way to choose player names, keep track of scores
-
+//Button Actions
 gameStartBtn.addEventListener(touchEvent, function () {
   headerInfoEl.classList.add('opacity-transition');
+  if (numPlayers === 1) {
+    onePlayerGame();
+  } else {
+    twoPlayerGame();
+  }
 });
 gameStartBtn.addEventListener(touchEvent, function () {
   setTimeout(function () {
@@ -191,40 +196,3 @@ gameResetBtn.addEventListener(touchEvent, function () {
     gameResetBtn.classList.remove('hidden');
   }, 1500);
 });
-// //touch screen
-// gameStartBtn.addEventListener(
-//   'touchstart',
-//   function () {
-//     headerInfoEl.classList.add('opacity-transition');
-//   },
-//   { passive: true }
-// );
-// gameStartBtn.addEventListener(
-//   'touchstart',
-//   function () {
-//     setTimeout(function () {
-//       addHiddenEl(headerInfoEl);
-//     }, 500);
-//     {
-//       passive: true;
-//     }
-//   },
-//   { passive: true }
-// );
-// gameStartBtn.addEventListener(
-//   'touchstart',
-//   function () {
-//     console.log('hi');
-//   },
-//   { passive: true }
-// );
-
-// // gameResetBtn.addEventListener('touchend', resetGame);
-// // gameResetBtn.addEventListener('touchstart', function () {
-// //   setTimeout(function () {
-// //     addHiddenEl(winner);
-// //     winner.classList.remove('opacity-transition');
-// //     gameResetBtn.classList.remove('hidden');
-// //   }, 1500);
-// // });
-// console.log('for ios');
