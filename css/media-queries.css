@@ -20,6 +20,9 @@
     height: 32rem;
     width: 32rem;
   }
+  .title {
+    font-size: 4.8rem;
+  }
   .game-square,
   .game-square:active {
     height: 9rem;

@@ -5,13 +5,16 @@
     <title>Tic Tac Toe</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-con" href="tic-tac-toe_Favicon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-con" href="images/tic-tac-toe_Favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vollkorn:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
 
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="media-queries.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/media-queries.css" />
   </head>
   <body>
     <div class="gameplay-area">
@@ -19,20 +22,15 @@
         <div class="header-info center first-screen">
           <h1 class="title">TIC TAC TOE</h1>
           <div class="players-toggle">
-            
-              <p class="num-players-head"># of Players</p>
-              <p class="number-players-text">
-                2 Players</p>
-                <div clas="container--toggle">
-                <input type="checkbox" id="switch" class="checkbox" checked />
-                <label for="switch" class="toggle"></label>
-              </div>
-              </p>
-         
+            <p class="num-players-head"># of Players</p>
+            <p class="number-players-text">2 Players</p>
+            <div clas="container--toggle">
+              <input type="checkbox" id="switch" class="checkbox" checked />
+              <label for="switch" class="toggle"></label>
+            </div>
+            <!-- </p> -->
           </div>
           <btn class="btn game-start">Click to Play</btn>
-
-          <!-- <p class="player-turn">X starts the game!</p> -->
         </div>
         <div class="winner grid hidden">
           <p class="player-turn">X is the winner</p>
@@ -73,6 +71,6 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="scripts/script.js"></script>
   </body>
 </html>

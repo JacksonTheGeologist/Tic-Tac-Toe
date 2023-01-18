@@ -18,102 +18,61 @@ let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 let xScore = 0;
 let oScore = 0;
 let numPlayers = 2;
+let winnerState = false;
 
-//toggle number of players function
-
-// Math.floor(Math.random() * max);
-function togglePlayers() {
-  numPlayers = numPlayersToggle.checked ? 2 : 1;
-  numPlayersTextP.textContent = `${numPlayers} players`;
+// let winnerState = false;
+function randSquare() {
+  return Math.floor(Math.random() * 9);
 }
-numPlayersToggle.addEventListener(touchEvent, togglePlayers);
 
-function onePlayerGame() {
-  // if (numPlayers === 1) {
-  //   console.log('yippee~');
-  //   // User clicks --> marks the square
+// toggle number of players function
+const addHiddenEl = function (el) {
+  el.classList.add('hidden');
+};
 
-  // COMPUTER MOVES
-  const randSqrNum = Math.floor(Math.random() * 9);
-  if (!gameSquares[randSqrNum].textContent) {
-    gameSquares[randSqrNum].textContent = 'O';
+function squaresPause() {
+  for (let i = 0; i < gameSquares.length; i++) {
+    gameSquares[i].classList.add('no-hover');
   }
-  //   // Rand num gen for computer move
-  //   // Checks to make sure spot is empty
-  //   // Empty --> Marks with 0
-  //   // loops back and regenerates a number
-  //   // checks for empty
-  //   // empty marks with O
-  //   // extend for loop to make computer move
-  //   // checkWinner()
-  // }
 }
 
-function twoPlayerGame() {}
-
-//adds event listener to each square
-for (i = 0; i < gameSquares.length; i++) {
-  gameSquares[i].addEventListener(touchEvent, function (e) {
-    if (!e.target.textContent) {
-      e.target.textContent = playerSymb;
-      playerSymb = playerSymb === 'X' ? 'O' : 'X';
-      e.target.classList.add('no-hover');
-      checkWinner();
-    }
-  });
+function squaresStart() {
+  for (let i = 0; i < gameSquares.length; i++) {
+    gameSquares[i].classList.remove('no-hover');
+  }
 }
 
-//Creates winner text string and displays it
 function winnerText(playerID) {
+  winner.classList.remove('opacity-transition');
+  gameResetBtn.classList.remove('hidden');
   winner.classList.remove('hidden');
 
+  winnerState = true;
   winnerSymb = playerID.textContent;
 
   if (winnerSymb === 'X') {
     xScore += 1;
-
     playerXscoreMarkersP.textContent = '🔴 '.repeat(xScore);
   } else {
     oScore += 1;
     playerOscoreMarkersP.textContent = '🔵 '.repeat(oScore);
   }
-
   playerTurn.textContent = `${playerID.textContent} is the winner!`;
 }
 
-//Resets the Game
-const resetGame = function () {
-  playerTurn.textContent = `${winnerSymb} makes the first move!`;
-  gameResetBtn.classList.add('hidden');
-  setTimeout(function () {
-    for (i = 0; i < gameSquares.length; i++) {
-      gameSquares[i].textContent = '';
-      // playerSymb = 'X';
-      playerSymb = winnerSymb;
-      gameSquares[i].classList.remove('no-hover');
-      empties = 9;
-    }
-  }, 40);
-
-  setTimeout(function () {
-    winner.classList.add('opacity-transition');
-  }, 1000);
-};
-
-//Hides Elements
-const addHiddenEl = function (el) {
-  el.classList.add('hidden');
-};
-
-// GAME LOGIC
 function draw() {
+  winner.classList.remove('opacity-transition');
+  gameResetBtn.classList.remove('hidden');
   winner.classList.remove('hidden');
   playerTurn.textContent = 'Draw!';
 }
+// winner.classList.remove('opacity-transition');
+// for (let i = 0; i < gameSquares.length; i++) {
+//   gameSquares[i].remove('no-hover');
+// }
+// gameResetBtn.remove('hidden');
 
-let empties = 9;
 function checkWinner() {
-  empties--;
   if (
     gameSquares[0].textContent &&
     gameSquares[0].textContent === gameSquares[1].textContent &&
@@ -168,31 +127,123 @@ function checkWinner() {
     gameSquares[6].textContent === gameSquares[2].textContent
   ) {
     winnerText(gameSquares[6]);
-  } else if (empties === 0) {
+  } else if (empties === 1) {
     draw();
   }
 }
 
-//Button Actions
+// Math.floor(Math.random() * max);`
+function togglePlayers() {
+  numPlayers = numPlayersToggle.checked ? 2 : 1;
+  numPlayersTextP.textContent = `${numPlayers} players`;
+}
+numPlayersToggle.addEventListener(touchEvent, togglePlayers);
+
 gameStartBtn.addEventListener(touchEvent, function () {
   headerInfoEl.classList.add('opacity-transition');
-  if (numPlayers === 1) {
-    onePlayerGame();
-  } else {
-    twoPlayerGame();
-  }
-});
-gameStartBtn.addEventListener(touchEvent, function () {
   setTimeout(function () {
     addHiddenEl(headerInfoEl);
   }, 500);
+  buildSquares();
+  playGame();
 });
 
-gameResetBtn.addEventListener(touchEvent, resetGame);
-gameResetBtn.addEventListener(touchEvent, function () {
+function buildSquares() {
+  for (let i = 0; i < gameSquares.length; i++) {
+    gameSquares[i].addEventListener(touchEvent, function () {
+      if (!gameSquares[i].textContent) {
+        gameSquares[i].textContent = playerSymb;
+        gameSquares[i].classList.add('no-hover');
+      }
+    });
+  }
+}
+
+function onePlayerGame() {
+  for (let i = 0; i < gameSquares.length; i++) {
+    gameSquares[i].addEventListener(touchEvent, function () {
+      checkWinner();
+      squaresPause();
+      if (!winnerState) {
+        compMove();
+      }
+    });
+  }
+}
+
+function twoPlayerGame() {
+  for (let i = 0; i < gameSquares.length; i++) {
+    gameSquares[i].addEventListener(touchEvent, function () {
+      checkWinner();
+      empties--;
+      playerSymb = playerSymb === 'X' ? 'O' : 'X';
+    });
+  }
+}
+
+function squaresState(state) {
+  for (let v = 0; v < gameSquares.length; v++) {
+    gameSquares[v].style.pointerEvents = `${state}`;
+  }
+}
+
+function compMove() {
   setTimeout(function () {
-    addHiddenEl(winner);
-    winner.classList.remove('opacity-transition');
-    gameResetBtn.classList.remove('hidden');
+    let randNum = randSquare();
+
+    while (gameSquares[randNum].textContent) {
+      randNum = randSquare();
+    }
+    gameSquares[randNum].textContent = 'O';
+    // squaresState('auto');
+    squaresStart();
+    gameSquares[randNum].classList.add('no-hover');
+    checkWinner();
+  }, Math.floor(Math.random() * 1000));
+}
+
+function playGame() {
+  if (numPlayers === 1) {
+    onePlayerGame();
+  } else if (numPlayers === 2) {
+    twoPlayerGame();
+  }
+}
+
+let empties = 9;
+
+//Resets the Game
+const resetGame = function () {
+  playerTurn.textContent = `${winnerSymb} makes the first move!`;
+  gameResetBtn.classList.add('hidden');
+
+  setTimeout(function () {
+    for (i = 0; i < gameSquares.length; i++) {
+      gameSquares[i].textContent = '';
+      playerSymb = winnerSymb;
+      gameSquares[i].classList.remove('no-hover');
+      empties = 9;
+    }
+  }, 40);
+
+  setTimeout(function () {
+    winner.classList.add('opacity-transition');
+  }, 1000);
+
+  setTimeout(function () {
+    winner.classList.add('hidden');
+    if (numPlayers === 1 && winnerSymb === 'O') {
+      compMove();
+      playerSymb = 'X';
+    }
   }, 1500);
-});
+  // winnerState = false;
+
+  squaresStart();
+  winnerState = false;
+};
+
+gameResetBtn.addEventListener(touchEvent, resetGame);
+// gameResetBtn.addEventListener(touchEvent, playGame);
+
+// // GAME LOGIC
