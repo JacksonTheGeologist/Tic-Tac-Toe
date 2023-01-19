@@ -214,7 +214,8 @@ body {
   color: #161d3e31;
 }
 
-.no-hover {
+.no-hover,
+.comp-pause {
   pointer-events: none;
 }
 

@@ -14,7 +14,7 @@ const numPlayersTextP = document.querySelector('.number-players-text');
 //Game Pieces
 let playerSymb = 'X';
 let winnerSymb = 'X';
-let touchEvent = 'ontouchstart' in window ? 'touchend' : 'click';
+let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
 let xScore = 0;
 let oScore = 0;
 let numPlayers = 2;
@@ -32,13 +32,13 @@ const addHiddenEl = function (el) {
 
 function squaresPause() {
   for (let i = 0; i < gameSquares.length; i++) {
-    gameSquares[i].classList.add('no-hover');
+    gameSquares[i].classList.add('comp-pause');
   }
 }
 
 function squaresStart() {
   for (let i = 0; i < gameSquares.length; i++) {
-    gameSquares[i].classList.remove('no-hover');
+    gameSquares[i].classList.remove('comp-pause');
   }
 }
 
@@ -73,6 +73,7 @@ function draw() {
 // gameResetBtn.remove('hidden');
 
 function checkWinner() {
+  empties--;
   if (
     gameSquares[0].textContent &&
     gameSquares[0].textContent === gameSquares[1].textContent &&
@@ -127,8 +128,9 @@ function checkWinner() {
     gameSquares[6].textContent === gameSquares[2].textContent
   ) {
     winnerText(gameSquares[6]);
-  } else if (empties === 1) {
+  } else if (empties === 0) {
     draw();
+    winnerState = true;
   }
 }
 
@@ -163,8 +165,9 @@ function onePlayerGame() {
   for (let i = 0; i < gameSquares.length; i++) {
     gameSquares[i].addEventListener(touchEvent, function () {
       checkWinner();
-      empties--;
+      // empties--;
       squaresPause();
+      gameSquares[i].classList.add('no-hover');
       if (!winnerState) {
         compMove();
       }
@@ -176,7 +179,7 @@ function twoPlayerGame() {
   for (let i = 0; i < gameSquares.length; i++) {
     gameSquares[i].addEventListener(touchEvent, function () {
       checkWinner();
-      empties--;
+      // empties--;
       playerSymb = playerSymb === 'X' ? 'O' : 'X';
     });
   }
@@ -199,7 +202,7 @@ function compMove() {
     // squaresState('auto');
     squaresStart();
     gameSquares[randNum].classList.add('no-hover');
-    empties--;
+    // empties--;
     checkWinner();
   }, Math.floor(Math.random() * 1000));
 }
@@ -216,6 +219,7 @@ let empties = 9;
 
 //Resets the Game
 const resetGame = function () {
+  console.log('reset');
   playerTurn.textContent = `${winnerSymb} makes the first move!`;
   gameResetBtn.classList.add('hidden');
 
@@ -225,11 +229,13 @@ const resetGame = function () {
       playerSymb = winnerSymb;
       gameSquares[i].classList.remove('no-hover');
       empties = 9;
+      console.log('to1');
     }
   }, 40);
 
   setTimeout(function () {
     winner.classList.add('opacity-transition');
+    console.log('to2');
   }, 1000);
 
   setTimeout(function () {
@@ -238,6 +244,7 @@ const resetGame = function () {
       compMove();
       playerSymb = 'X';
     }
+    console.log('to3');
   }, 1500);
   // winnerState = false;
 
