@@ -14,7 +14,7 @@ const numPlayersTextP = document.querySelector('.number-players-text');
 //Game Pieces
 let playerSymb = 'X';
 let winnerSymb = 'X';
-let touchEvent = 'ontouchstart' in window ? 'touchstart' : 'click';
+let touchEvent = 'ontouchstart' in window ? 'touchend' : 'click';
 let xScore = 0;
 let oScore = 0;
 let numPlayers = 2;
