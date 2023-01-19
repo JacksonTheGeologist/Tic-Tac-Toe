@@ -135,8 +135,6 @@ function checkWinner() {
 // Math.floor(Math.random() * max);`
 function togglePlayers() {
   numPlayers = numPlayersToggle.checked ? 2 : 1;
-  console.log('toggled');
-  // numPlayersTextP.textContent = `${numPlayers} players`;
   numPlayersTextP.textContent = `${numPlayers} players`;
 }
 numPlayersToggle.addEventListener('change', togglePlayers);
@@ -165,6 +163,7 @@ function onePlayerGame() {
   for (let i = 0; i < gameSquares.length; i++) {
     gameSquares[i].addEventListener(touchEvent, function () {
       checkWinner();
+      empties--;
       squaresPause();
       if (!winnerState) {
         compMove();
