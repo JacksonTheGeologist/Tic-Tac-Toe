@@ -3,7 +3,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 3.2rem;
   }
 
   .game-board {
@@ -18,6 +17,10 @@
 @media (max-width: 32em) {
   html {
     font-size: 40%;
+  }
+
+  .gameplay-area {
+    margin-left: 1.6rem;
   }
 
   .scoreboard {
