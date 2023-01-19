@@ -139,7 +139,7 @@ function togglePlayers() {
   // numPlayersTextP.textContent = `${numPlayers} players`;
   numPlayersTextP.textContent = `${numPlayers} players`;
 }
-numPlayersToggle.addEventListener(touchEvent, togglePlayers);
+numPlayersToggle.addEventListener(touchEvent, togglePlayers, false);
 
 gameStartBtn.addEventListener(touchEvent, function () {
   headerInfoEl.classList.add('opacity-transition');
