@@ -135,6 +135,8 @@ function checkWinner() {
 // Math.floor(Math.random() * max);`
 function togglePlayers() {
   numPlayers = numPlayersToggle.checked ? 2 : 1;
+  console.log('toggled');
+  // numPlayersTextP.textContent = `${numPlayers} players`;
   numPlayersTextP.textContent = `${numPlayers} players`;
 }
 numPlayersToggle.addEventListener(touchEvent, togglePlayers);
