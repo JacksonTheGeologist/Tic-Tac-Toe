@@ -200,6 +200,7 @@ function compMove() {
     // squaresState('auto');
     squaresStart();
     gameSquares[randNum].classList.add('no-hover');
+    empties--;
     checkWinner();
   }, Math.floor(Math.random() * 1000));
 }
