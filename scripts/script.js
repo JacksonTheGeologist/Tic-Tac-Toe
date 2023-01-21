@@ -204,18 +204,27 @@ function squaresState(state) {
 
 function compMove() {
   setTimeout(function () {
+<<<<<<< HEAD
     let compMoveLoc = intelligence('X');
 
     // gameSquares[randNum].textContent = 'O';
     squaresStart();
 
+=======
+    intelligence();
+    squaresStart();
+>>>>>>> 3f54c5a (changes)
     checkWinner();
   }, Math.floor(Math.random() * 1000));
 }
 
 function intelligence(playerSymb) {
   const symbols = ['X', 'O'];
+<<<<<<< HEAD
   let moveLoc = 0;
+=======
+  let moveLoc = randSquare();
+>>>>>>> 3f54c5a (changes)
 
   for (let symb = 0; symb < symbols.length; symb++) {
     playerSymb = symbols[symb];
@@ -253,12 +262,19 @@ function intelligence(playerSymb) {
         }
 
         if (
+<<<<<<< HEAD
           gameSquares[possLocs[0]].textContent &&
+=======
+          gameSquares[possLocs[0]].textContent !== '' &&
+>>>>>>> 3f54c5a (changes)
           gameSquares[possLocs[0]].textContent ===
             gameSquares[possLocs[1]].textContent &&
           gameSquares[possLocs[0]].textContent === playerSymb
         ) {
+<<<<<<< HEAD
           console.log('intel');
+=======
+>>>>>>> 3f54c5a (changes)
           moveLoc = plyrLoc;
           winLoc = true;
           break;
@@ -268,9 +284,17 @@ function intelligence(playerSymb) {
     if (winLoc === false) {
       while (gameSquares[moveLoc].textContent) {
         moveLoc = randSquare();
+<<<<<<< HEAD
       }
     }
   }
+=======
+        winLoc = false;
+      }
+    }
+  }
+
+>>>>>>> 3f54c5a (changes)
   gameSquares[moveLoc].textContent = 'O';
   gameSquares[moveLoc].classList.add('no-hover');
 }
@@ -304,6 +328,7 @@ const resetGame = function () {
   setTimeout(function () {
     winner.classList.add('hidden');
     if (numPlayers === 1 && winnerSymb === 'O') {
+      squaresPause();
       compMove();
       playerSymb = 'X';
     }
