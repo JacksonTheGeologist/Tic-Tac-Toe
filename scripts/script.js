@@ -204,75 +204,10 @@ function squaresState(state) {
 
 function compMove() {
   setTimeout(function () {
-    let compMoveLoc = intelligence('X');
-
-    // gameSquares[randNum].textContent = 'O';
+    intelligence();
     squaresStart();
-
     checkWinner();
   }, Math.floor(Math.random() * 1000));
-}
-
-function intelligence(playerSymb) {
-  const symbols = ['X', 'O'];
-  let moveLoc = 0;
-
-  for (let symb = 0; symb < symbols.length; symb++) {
-    playerSymb = symbols[symb];
-    let winLoc = false;
-
-    const emptySquares = [];
-
-    let plyrLoc = 0;
-
-    //builds empty squares array
-    for (let gameSquare = 0; gameSquare < gameSquares.length; gameSquare++) {
-      if (!gameSquares[gameSquare].textContent) {
-        emptySquares.push(gameSquare);
-      }
-    }
-
-    //build an array of the possible win scenarios that include that empty square
-    for (let square = 0; square < emptySquares.length; square++) {
-      const winScns = [];
-
-      for (let scn = 0; scn < possibleWins.length; scn++) {
-        if (possibleWins[scn].includes(emptySquares[square])) {
-          winScns.push(possibleWins[scn]);
-        }
-      }
-      let winLoc = false;
-      for (let y = 0; y < winScns.length; y++) {
-        const possLocs = [];
-        for (let pos = 0; pos < winScns[y].length; pos++) {
-          if (winScns[y][pos] !== emptySquares[square]) {
-            possLocs.push(winScns[y][pos]);
-          } else if (winScns[y][pos] === emptySquares[square]) {
-            plyrLoc = winScns[y][pos];
-          }
-        }
-
-        if (
-          gameSquares[possLocs[0]].textContent &&
-          gameSquares[possLocs[0]].textContent ===
-            gameSquares[possLocs[1]].textContent &&
-          gameSquares[possLocs[0]].textContent === playerSymb
-        ) {
-          console.log('intel');
-          moveLoc = plyrLoc;
-          winLoc = true;
-          break;
-        }
-      }
-    }
-    if (winLoc === false) {
-      while (gameSquares[moveLoc].textContent) {
-        moveLoc = randSquare();
-      }
-    }
-  }
-  gameSquares[moveLoc].textContent = 'O';
-  gameSquares[moveLoc].classList.add('no-hover');
 }
 
 function playGame() {
@@ -304,6 +239,7 @@ const resetGame = function () {
   setTimeout(function () {
     winner.classList.add('hidden');
     if (numPlayers === 1 && winnerSymb === 'O') {
+      squaresPause();
       compMove();
       playerSymb = 'X';
     }
